@@ -1,0 +1,148 @@
+*{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  /* color:#333; */
+}
+
+body{
+  padding:0;
+  margin:0;
+  background: #fff;
+}
+
+
+.app-box{
+  /* border:1px solid #aaa; */
+  padding:3rem 1rem;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  grid-gap:4rem;
+  justify-content: center;
+}
+
+.title{
+  font-size:35px;
+  text-align:center;
+  font-weight: bold;
+  color:#444;
+}
+.sub-title{
+  text-align: center;
+  margin:1rem 0 0;
+  padding:0;
+  color:#444;
+}
+
+.insertRow{
+  text-align: end;
+  /* display:grid; */
+  /* border:1px solid #eee; */
+}
+
+#input{
+  padding:1rem .5rem;
+}
+
+.no-items{
+  padding:3rem;
+  text-align: center;
+  font-size:28px;
+  color:#aaa;
+  transform:rotate(-4deg);
+}
+
+
+.listbox{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border:1px solid #eee;
+  background:#fff;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.07);
+  min-height:30vh;
+  max-height: 50vh;
+  overflow-y:auto;
+  overflow-x: hidden;
+}
+
+
+
+.foot{
+  display: flex;
+  flex-direction: column;
+  grid-gap:8px;
+  text-align: center;
+  color:#333;
+}
+
+#techs{
+  font-size: 14px;
+}
+
+
+/* iPad */
+@media only screen and (min-width:400px){
+  .listbox{
+    min-height:38vh;
+  }
+}
+
+
+
+/* Desktop */
+@media only screen and (min-width:1000px){
+  .app-box{
+    width:50%;
+  }
+
+  .listbox{
+    justify-content: center;
+    min-height:36vh;
+  }
+}
+
+
+
+
+
+
+
+
+
+/*  CUSTOMIZED MATERIAL UI COMPONENTS */
+
+
+/* #action-btn *{
+  text-transform: none;
+  color:#ccc !important;
+} */
+
+
+.MuiAutocomplete-root{
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.07);
+}
+
+.MuiButton-root *{
+  color: #eee;
+}
+
+.MuiSaveIcon-root *{
+  color:#fff !important;
+}
+
+.MuiListItem-root{
+  margin: .2rem auto;
+}
+
+.MuiListItem-root:hover{
+  background:#f6f6f6;
+}
+
+.MuiListItemText-root{
+  color:#333;
+}
+
+
+
+
+/* Customized Bootstrap Elements */
