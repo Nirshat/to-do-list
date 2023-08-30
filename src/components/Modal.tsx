@@ -76,15 +76,15 @@ const Modal = () => {
   const [archived, setArchived] = useState<any[]>([]);
 
   useEffect(() => {
-    localStorage.setItem("archived", JSON.stringify(archived));
-  }, [archived]);
-
-  useEffect(() => {
     const storedArchives = localStorage.getItem("archived");
     if (storedArchives) {
       setArchived(JSON.parse(storedArchives));
     }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("archived", JSON.stringify(archived));
+  }, [archived]);
 
   const archiveItem = (idOfDoneTasks: any, task: string) => {
     const filteredItems = list.filter((li) => li.id !== idOfDoneTasks);
