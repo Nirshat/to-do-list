@@ -15,9 +15,10 @@ interface ItemProp {
   item: ItemType;
   edit: (id: any, item: string) => void;
   del: (idThatWasAboutToRemove: any) => void;
+  done: (idOfDoneTasks:any, task:string) => void;
 }
 
-const LiComponent = ({ item, edit, del }: ItemProp) => {
+const LiComponent = ({ item, edit, del, done }: ItemProp) => {
   return (
     <ListItem key={item.id} className="listitembox">
       <ListItemText primary={item.name} className="listext" />
@@ -32,7 +33,13 @@ const LiComponent = ({ item, edit, del }: ItemProp) => {
           />
           <ul className="dropdown-menu">
             <li
-              aria-label="delete"
+              id="action-btn"
+              onClick={() => done(item.id, item.name)}
+              className="dropdown-item"
+            >
+              Archive
+            </li>
+            <li
               id="action-btn"
               data-bs-toggle="modal"
               data-bs-target="#editList"
@@ -43,7 +50,6 @@ const LiComponent = ({ item, edit, del }: ItemProp) => {
             </li>
 
             <li
-              aria-label="delete"
               id="action-btn"
               onClick={() => del(item.id)}
               className="dropdown-item"

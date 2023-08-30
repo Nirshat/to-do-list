@@ -16,11 +16,14 @@ const Modal = () => {
       id: 3,
       name: "😴 Sleep",
     },
+    {
+      id: 4,
+      name: "↩ Repeat",
+    },
   ];
 
   const [item, setItem] = useState("");
   const [list, setList] = useState<any[]>([...defaultItems]);
-
 
   // Load data from local storage when the component mounts
   useEffect(() => {
@@ -35,8 +38,6 @@ const Modal = () => {
     localStorage.setItem("list", JSON.stringify(list));
   }, [list]);
 
-
-
   const addNewItem = () => {
     const itemprop = { id: uuidv4(), name: item };
     if (item !== "") {
@@ -47,10 +48,7 @@ const Modal = () => {
     }
   };
 
-
-
-
-  const [primKey ,setPrimKey] = useState();
+  const [primKey, setPrimKey] = useState();
   const [reqItem, setReqItem] = useState("");
 
   const readItem = (id: any, item: string) => {
@@ -60,22 +58,76 @@ const Modal = () => {
 
   const updateItems = list.map((li) => {
     if (li.id === primKey && reqItem !== "") {
-      return {...li, name:reqItem}; // new value
+      return { ...li, name: reqItem }; // new value
     }
     return li; // walang nagbago sa array
   });
 
 
 
-  const removeItem = (idThatWasAboutToRemove:any) => {
-    const filteredItems = list.filter(li => li.id !== idThatWasAboutToRemove);
+  const removeItem = (idThatWasAboutToRemove: any) => {
+    const filteredItems = list.filter((li) => li.id !== idThatWasAboutToRemove);
     setList(filteredItems);
+  };
+
+
+
+
+  const [archived, setArchived] = useState<any[]>([]);
+
+  useEffect(() => {
+    localStorage.setItem("archived", JSON.stringify(archived));
+  }, [archived]);
+
+  useEffect(() => {
+    const storedArchives = localStorage.getItem("archived");
+    if (storedArchives) {
+      setArchived(JSON.parse(storedArchives));
+    }
+  }, []);
+
+  const archiveItem = (idOfDoneTasks: any, task: string) => {
+    const filteredItems = list.filter((li) => li.id !== idOfDoneTasks);
+    setList(filteredItems);
+
+    const done = { id: idOfDoneTasks, name: task };
+    setArchived([...archived, done]);
+  };
+
+
+
+
+  const unarchiveItem = (idToUnarchived: any, task: string) => {
+    const filterArchived = archived.filter(item => item.id !== idToUnarchived);
+    // new list of all id na archieved
+    //  alisin yung id na i-a-unarchived. 
+    setArchived(filterArchived);
+
+    const undone = { id: idToUnarchived, name: task };
+    //  from Done to Not Done
+    //  pasok ulit sa tasks list
+    setList([...list, undone]);
+  };
+
+  const deleteArchivedItem = (idToDelete:any) => {
+    const filterArchived = archived.filter(item => item.id !== idToDelete);
+    setArchived(filterArchived);
   }
 
   return (
     <>
-      <ListApp list={list} edit={readItem} del={removeItem} />
+      <ListApp
+        list={list}
+        edit={readItem}
+        del={removeItem}
+        done={archiveItem}
+        archives={archived}
+        undone={unarchiveItem}
+        delArchived={deleteArchivedItem}
+      />
 
+
+      {/* ADD MODAL */}
       <div
         className="modal fade"
         id="addNew"
@@ -88,7 +140,7 @@ const Modal = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="staticBackdropLabel">
-                Add New Item
+                Add New Task
               </h1>
               <button
                 type="button"
@@ -105,6 +157,7 @@ const Modal = () => {
                 placeholder="type here..."
                 value={item}
                 onChange={(event) => setItem(event.target.value)}
+                maxLength={100}
               />
             </div>
             <div className="modal-footer">
@@ -131,6 +184,7 @@ const Modal = () => {
 
 
 
+      {/* Read/Update Modal */}
       <div
         className="modal fade"
         id="editList"
@@ -143,7 +197,7 @@ const Modal = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="staticBackdropLabel">
-                Edit Item
+                Edit Task
               </h1>
               <button
                 type="button"
@@ -158,6 +212,7 @@ const Modal = () => {
                 className="form-control"
                 id="input"
                 placeholder="type here..."
+                maxLength={100}
                 value={reqItem}
                 onChange={(event) => setReqItem(event.target.value)}
               />
@@ -187,3 +242,5 @@ const Modal = () => {
 };
 
 export default Modal;
+
+// Lorem ipsum dolor sit amet consectetur adipisicing elit. Error recusandae, qui commodi tempora culpa corporis vero accusantium doloremque consequatur enim quas, repudiandae ipsam nostrum placeat voluptate deleniti nemo incidunt? Quia.
