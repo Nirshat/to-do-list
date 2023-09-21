@@ -64,29 +64,3 @@ const LiComponent = ({ item, edit, del, done }: ItemProp) => {
 };
 
 export default LiComponent;
-
-
-
-
-{
-  /* <IconButton
-                aria-label="delete"
-                id="action-btn"
-                data-bs-toggle="modal"
-                data-bs-target="#editList"
-                onClick={() => edit(item.id, item.name)}
-                className="dropdown-item"
-              >
-                <EditIcon />
-              </IconButton> */
-}
-
-
-
-{/* <IconButton
-aria-label="delete"
-id="action-btn"
-onClick={() => del(item.id)}
->
-<DeleteIcon />
-</IconButton> */}

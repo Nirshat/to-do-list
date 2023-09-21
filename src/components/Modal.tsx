@@ -2,28 +2,35 @@ import { useState, useEffect } from "react";
 import ListApp from "./ListApp";
 import { v4 as uuidv4 } from "uuid";
 
+
+
+type ItemTypes = {
+  id: string
+  name: string
+}
+
 const Modal = () => {
-  const defaultItems = [
+  const defaultItems : ItemTypes[] = [
     {
-      id: 1,
+      id: 'dos1',
       name: "☕ Cofee",
     },
     {
-      id: 2,
+      id: 'dos2',
       name: "💻 Code",
     },
     {
-      id: 3,
+      id: 'dos3',
       name: "😴 Sleep",
     },
     {
-      id: 4,
+      id: 'dos4',
       name: "↩ Repeat",
     },
   ];
 
   const [item, setItem] = useState("");
-  const [list, setList] = useState<any[]>([...defaultItems]);
+  const [list, setList] = useState([...defaultItems]);
 
   // Load data from local storage when the component mounts
   useEffect(() => {
@@ -41,7 +48,7 @@ const Modal = () => {
   const addNewItem = () => {
     const itemprop = { id: uuidv4(), name: item };
     if (item !== "") {
-      setList([...list, itemprop]);
+      setList([itemprop, ...list]);
       setItem("");
     } else {
       alert("Please Input an Item");
@@ -86,12 +93,12 @@ const Modal = () => {
     localStorage.setItem("archived", JSON.stringify(archived));
   }, [archived]);
 
-  const archiveItem = (idOfDoneTasks: any, task: string) => {
+  const archiveItem = (idOfDoneTasks:string, task: string) => {
     const filteredItems = list.filter((li) => li.id !== idOfDoneTasks);
     setList(filteredItems);
 
     const done = { id: idOfDoneTasks, name: task };
-    setArchived([...archived, done]);
+    setArchived([done, ...archived]);
   };
 
 
@@ -106,7 +113,7 @@ const Modal = () => {
     const undone = { id: idToUnarchived, name: task };
     //  from Done to Not Done
     //  pasok ulit sa tasks list
-    setList([...list, undone]);
+    setList([undone, ...list,]);
   };
 
   const deleteArchivedItem = (idToDelete:any) => {
@@ -170,7 +177,7 @@ const Modal = () => {
               </button>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-success"
                 data-bs-dismiss="modal"
                 onClick={addNewItem}
               >
@@ -227,7 +234,7 @@ const Modal = () => {
               </button>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-success"
                 data-bs-dismiss="modal"
                 onClick={() => setList(updateItems)}
               >
